@@ -24,8 +24,7 @@ Include the recipe in your deploy.rb
 You'll need to setup your slack details with an API key, room and subdomain. You can add these as ENV variables or in the config/deploy.rb
 
     # required
-    set :slack_url, 'https://hooks.slack.com/services/<YOUR-STRING1>/<YOUR-STRING2>' # comes from inbound webhook integration
-    set :slack_room, '#general' # the room to send the message to
+    set :slack_hook, 'https://hooks.slack.com/services/<YOUR-STRING1>/<YOUR-STRING2>/<YOUR-STRING3>' # comes from inbound webhook integration
 
     # optional
     set :slack_application, Application name 
@@ -36,8 +35,7 @@ You'll need to setup your slack details with an API key, room and subdomain. You
 Or use the ENV variables:
 
     # required
-    ENV['SLACK_URL'] = ''
-    ENV['SLACK_ROOM'] = ''
+    ENV['SLACK_HOOK'] = ''
 
     # optional
     ENV['SLACK_APPLICATION'] = ''

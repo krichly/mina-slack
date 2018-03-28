@@ -53,8 +53,8 @@ module Mina
       end
 
       def error!(message)
-        url = fetch(:slack_url)
-        send_slack_message(slack_deploy_fail_message, url) if (url && fetch(:slack_room))
+        url = fetch(:slack_hook)
+        send_slack_message(slack_deploy_fail_message, url) if (url)
         print_error message
         exit 1
       end
@@ -68,7 +68,6 @@ module Mina
 
         message = {
           'parse'       => 'full',
-          'channel'     => fetch(:slack_room),
           'username'    => fetch(:slack_username),
           'attachments' => [attachment],
           'icon_emoji'  => fetch(:slack_emoji)
@@ -84,15 +83,14 @@ module Mina
 
         message = {
           'parse'       => 'full',
-          'channel'     => fetch(:slack_room),
           'username'    => fetch(:slack_username),
           'attachments' => [attachment],
           'icon_emoji'  => fetch(:slack_emoji)
         }
       end
 
-      def send_slack_message(message, slack_url)
-        uri = URI.parse(slack_url)
+      def send_slack_message(message, slack_hook)
+        uri = URI.parse(slack_hook)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE

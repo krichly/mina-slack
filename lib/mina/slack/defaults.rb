@@ -1,6 +1,6 @@
 # Required
-set :slack_url,       -> { ENV['SLACK_URL'] }
-set :slack_room,        -> { ENV['SLACK_ROOM'] }
+set :slack_hook,       -> { ENV['SLACK_HOOK'] }
+
 # Optional
 set :slack_stage,       -> { ENV['SLACK_STAGE'] || ENV['TO'] || ENV['to'] || fetch(:rails_env) }
 set :slack_application, -> { ENV['SLACK_APPLICATION'] || application }

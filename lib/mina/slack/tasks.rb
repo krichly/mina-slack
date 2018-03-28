@@ -1,7 +1,7 @@
 # Slack tasks
 namespace :slack do
   task :post_info do
-    if (url = fetch(:slack_url)) && (room = fetch(:slack_room))
+    if url = fetch(:slack_hook)
       if set?(:user)
         Net::SSH.start(fetch(:domain), fetch(:user)) do |ssh|
           set(:last_revision, ssh.exec!("cd #{fetch(:deploy_to)}/scm; git log -n 1 --pretty=format:'%H' #{fetch(:branch)} --"))
