@@ -27,7 +27,6 @@ You'll need to setup your slack details with an API key, room and subdomain. You
     set :slack_hook, 'https://hooks.slack.com/services/<YOUR-STRING1>/<YOUR-STRING2>/<YOUR-STRING3>' # comes from inbound webhook integration
 
     # optional
-    set :slack_application, Application name 
     set :slack_username, 'Deploy Bot' # displayed as name of message sender
     set :slack_emoji, ':cloud:' # will be used as the avatar for the message
     set :slack_stage, 'staging' # will be used to specify the deployment environment
@@ -38,7 +37,6 @@ Or use the ENV variables:
     ENV['SLACK_HOOK'] = ''
 
     # optional
-    ENV['SLACK_APPLICATION'] = ''
     ENV['SLACK_USERNAME'] = ''
     ENV['SLACK_EMOJI'] = ''
     ENV['SLACK_STAGE'] = '' # or ENV['to']

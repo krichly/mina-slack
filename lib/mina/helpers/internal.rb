@@ -109,7 +109,7 @@ module Mina
       end
 
       def attachment_project
-        { title: 'New version of project', value: fetch(:slack_application), short: true }
+        { title: 'New version of project', value: fetch(:application_name), short: true }
       end
 
       def attachment_enviroment
@@ -121,7 +121,7 @@ module Mina
       end
 
       def attachment_revision
-        { title: 'Revision', value: "#{fetch(:slack_application)}: #{fetch(:slack_stage)} #{short_revision}", short: true }
+        { title: 'Revision', value: "#{fetch(:application_name)}: #{fetch(:slack_stage)} #{short_revision}", short: true }
       end
 
       def attachment_changes
@@ -129,7 +129,7 @@ module Mina
       end
 
       def attachment_deploy_failed
-        { title: 'Deploy status', value: "Deployment of #{fetch(:slack_application)} has failed.", short: false}
+        { title: 'Deploy status', value: "Deployment of #{fetch(:application_name)} has failed.", short: false}
       end
 
       def changes
