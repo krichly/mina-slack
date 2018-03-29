@@ -61,9 +61,10 @@ module Mina
 
       def slack_deploy_message
         attachment = {
-          fallback: 'Required plain-text summary of the attachment.',
+          fallback: "Deployed #{short_revision}",
           color: '#36a64f',
-          fields: [attachment_project, attachment_enviroment, attachment_deployer, attachment_revision, attachment_changes]
+          fields: [attachment_project, attachment_enviroment, attachment_deployer, attachment_committer, 
+            attachment_branch, attachment_commit, attachment_commit_msg, attachment_url]
         }
 
         message = {
@@ -109,7 +110,7 @@ module Mina
       end
 
       def attachment_project
-        { title: 'New version of project', value: fetch(:application_name), short: true }
+        { title: 'Project', value: fetch(:application_name), short: true }
       end
 
       def attachment_enviroment
@@ -120,25 +121,28 @@ module Mina
         { title: 'Deployer', value: fetch(:deployer), short: true }
       end
 
-      def attachment_revision
-        { title: 'Revision', value: "#{fetch(:application_name)}: #{fetch(:slack_stage)} #{short_revision}", short: true }
+      def attachment_committer 
+        { title: 'Committer', value: fetch(:last_committer), short: true }
       end
 
-      def attachment_changes
-        { title: 'Changes', value: fetch(:changes), short: false }
+      def attachment_commit
+        { title: 'Revision', value: "#{short_revision}", short: true }
+      end
+
+      def attachment_branch
+        { title: 'Branch', value: fetch(:branch), short: true }
+      end
+
+      def attachment_commit_msg
+        { title: 'Commit Message', value: fetch(:last_commit_msg), short: false }
+      end
+
+      def attachment_url
+        { title: 'Url', value: fetch(:domain), short: false}
       end
 
       def attachment_deploy_failed
         { title: 'Deploy status', value: "Deployment of #{fetch(:application_name)} has failed.", short: false}
-      end
-
-      def changes
-        last_revision = fetch(:last_revision)
-        if last_revision.empty?
-          set(:changes, `git --no-pager log --pretty=format:'Commit: %h - %ad%n%an - %s%n' --date=short --abbrev-commit #{fetch(:deployed_revision)} origin/#{fetch(:branch)} --`)
-        else
-          set(:changes, `git --no-pager log --pretty=format:'Commit: %h - %ad%n%an - %s%n' --date=short --abbrev-commit #{fetch(:last_revision)}...#{fetch(:last_commit)} origin/#{fetch(:branch)} --`)
-        end
       end
 
     end
